@@ -1,0 +1,47 @@
+.notes__main-content{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.notes__appbar{
+    display: flex;
+    align-items: center;
+    background-color: $primary;
+    color: #fff;
+    padding: 10px 20px 10px 20px;
+    justify-content: space-between;
+
+
+}
+.notes__content{
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+}
+
+.notes__title-input{
+    border: none;
+    color:$dark-grey;
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 10px;
+        
+    &:focus{
+        outline: none;
+    }
+}
+.note__textarea{
+    border: none;
+    font-size: 20px;
+    flex: 1 1 auto;
+    resize: none;
+
+    &:focus{
+        outline: none;
+    }
+}
+.notes__image{
+box-shadow: 5px 5px $dark-grey;
+width: 150px;
+}

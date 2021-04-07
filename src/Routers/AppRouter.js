@@ -1,32 +1,63 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
     Redirect
 } from "react-router-dom";
 import { JournalScreen } from '../components/journal/JournalScreen';
 import { AuthRouter } from './AuthRouter';
+import { firebase } from "../firebase/firebaseConfig";
+import { login } from '../actions/auth';
+import { PrivateRouter } from './PrivateRouter';
+import { PublicRoute } from './PublicRoute';
 
 
 
 export const AppRouter = () => {
+    const dispatch = useDispatch()
+    const [gloLoading, setgloLoading] = useState(true)
+    const [inLogin, setinLogin] = useState(false)
+
+    useEffect(() => {
+        setgloLoading(false)
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user?.uid) {
+                dispatch(login(user.uid, user.displayName))
+                setinLogin(true)
+            } else {
+                setinLogin(false)
+            }
+
+        })
+
+    }, [dispatch, gloLoading, inLogin])
+
+
+    if (gloLoading) {
+        return <h1>Loading...</h1>
+    }
+
     return (
 
 
         <Router>
 
             <Switch>
-                <Route
+                <PublicRoute
+
                     path='/auth'
                     component={AuthRouter}
+                    isAuthenticated={inLogin}
+
                 />
 
 
-                <Route
+                <PrivateRouter
                     exact
                     path='/'
                     component={JournalScreen}
+                    isAuthenticated={inLogin}
 
                 />
 
