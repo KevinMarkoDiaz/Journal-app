@@ -1,32 +1,59 @@
 import React from 'react'
+import moment from "moment";
+import { useDispatch } from 'react-redux';
+import { activeNote } from "../../actions/notes";
 
-export const JournalEntry = () => {
+
+export const JournalEntry = ({ id, date, title, body, url }) => {
+
+    const dispatch = useDispatch()
+
+
+    const handleNoteActive = () => {
+
+        dispatch(activeNote(id, { date, title, body, url }))
+
+
+    };
+
+    const noteDate = moment(date)
+
+
     return (
-        <div className="journal__entry pointer" >
+        <div className="journal__entry pointer"
+            onClick={handleNoteActive} >
+            {
+                url &&
 
-            <div
-                className="journal__entry-picture"
-                style={{
-                    backgroundSize: 'cover',
-                    backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVWFpB-Qo685ouG6gxuwMDhvYjQM0L1y4BxUvfdso-RofO_gproDtoao0e_TN5bC3YoyI&usqp=CAU)'
-                }}
+                <div
+                    className="journal__entry-picture"
+                    style={{
+                        backgroundSize: 'cover',
+                        backgroundImage: `url(${url})`
+                    }}
 
-            >
-            </div>
-
+                >
+                </div>
+            }
             <div className="journal__entry-body">
                 <p className="journal__entry-title">
-                    Un nuevo día
-                    
+                    {title}
+
                 </p>
                 <p className="journal__entry-content">
-                         sdfskakdjjfjjjjjjjjjjjjjjjjjjjjjj
-         
-                </p> 
+                    {body}
+
+                </p>
             </div>
             <div className="journal__entry-date-box">
-<span>Monday</span>
-<h4>28</h4>
+                <span>{
+
+                    noteDate.format('dddd')
+
+
+                }</span>
+                <h4>   {
+                    noteDate.format('Do')}  </h4>
             </div>
 
         </div>

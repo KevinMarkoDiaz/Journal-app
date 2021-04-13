@@ -11,6 +11,8 @@ import { firebase } from "../firebase/firebaseConfig";
 import { login } from '../actions/auth';
 import { PrivateRouter } from './PrivateRouter';
 import { PublicRoute } from './PublicRoute';
+import { loadNotes } from '../hellpers/loadNotes';
+import { setNotes } from '../actions/notes';
 
 
 
@@ -21,10 +23,15 @@ export const AppRouter = () => {
 
     useEffect(() => {
         setgloLoading(false)
-        firebase.auth().onAuthStateChanged((user) => {
+        firebase.auth().onAuthStateChanged(async (user) => {
             if (user?.uid) {
+
                 dispatch(login(user.uid, user.displayName))
                 setinLogin(true)
+
+                const notes = await loadNotes(user.uid);
+                dispatch(setNotes(notes));
+
             } else {
                 setinLogin(false)
             }
