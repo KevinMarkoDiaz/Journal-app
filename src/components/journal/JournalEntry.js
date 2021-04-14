@@ -20,30 +20,32 @@ export const JournalEntry = ({ id, date, title, body, url }) => {
 
 
     return (
-        <div className="journal__entry pointer"
+        <div className="journal__entry pointer animate__animated animate__fadeIn"
             onClick={handleNoteActive} >
-            {
-                url &&
 
-                <div
-                    className="journal__entry-picture"
-                    style={{
-                        backgroundSize: 'cover',
-                        backgroundImage: `url(${url})`
-                    }}
+            <div className="journal__entry-pyc">
 
-                >
-                </div>
-            }
-            <div className="journal__entry-body">
-                <p className="journal__entry-title">
+
+
+
+                {
+                    url &&
+
+                    <div
+                        className="journal__entry-picture"
+                        style={{
+
+                            backgroundImage: `url(${url})`,
+
+                        }}
+
+                    >
+                    </div>
+                }  <h3 className="journal__entry-title">
                     {title}
 
-                </p>
-                <p className="journal__entry-content">
-                    {body}
+                </h3>
 
-                </p>
             </div>
             <div className="journal__entry-date-box">
                 <span>{
@@ -53,9 +55,9 @@ export const JournalEntry = ({ id, date, title, body, url }) => {
 
                 }</span>
                 <h4>   {
-                    noteDate.format('Do')}  </h4>
+                    noteDate.format('ll')}  </h4>
             </div>
 
-        </div>
+        </div >
     )
 }

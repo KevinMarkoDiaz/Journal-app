@@ -12,10 +12,10 @@ export const JournalScreen = () => {
 
 
     return (
-        <div className="journal__main-content">
+        <div className="journal__main-content animate__animated animate__fadeIn animate__faster">
+            <div className="divZindex"><Sidebar /></div>
 
-            <Sidebar />
-            <main>
+            <main className="zindex">
 
                 {
                     (active)

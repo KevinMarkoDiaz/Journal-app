@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { startSaveNote, startLoadinFile } from '../../actions/notes';
 
-
-
+import Swal from "sweetalert2";
 
 export const NotesAppBar = () => {
 
@@ -22,21 +21,26 @@ export const NotesAppBar = () => {
 
 
 
-
-
     const { active: note } = useSelector(state => state.notes)
 
     const dispatch = useDispatch()
     const handleSave = () => {
+        if (note.body === '' || note.title === '' || note.url === undefined) {
 
-        dispatch(startSaveNote(note));
+            Swal.fire('¡Tittle, body and picture is required!', 'alert')
+        } else { dispatch(startSaveNote(note)); }
+
+
 
     };
 
 
+
+
+
     return (
         <div className="notes__appbar">
-            <span>28 de agosto 2021</span>
+
 
 
             <input

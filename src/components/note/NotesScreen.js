@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useForm } from '../../hooks/useForm'
 import { activeNote, startDeleteNote } from '../../actions/notes'
 
-
+import moment from "moment";
 
 export const NotesScreen = () => {
 
@@ -15,9 +15,10 @@ export const NotesScreen = () => {
 
     const [formValues, handleImputChange, reset] = useForm(note);
 
-    const { title, body, id } = formValues;
+    const { title, body, id, date } = formValues;
 
     const activeId = useRef(note.id)
+    const noteDate = moment(date)
 
     useEffect(() => {
 
@@ -47,13 +48,17 @@ export const NotesScreen = () => {
 
     return (
         <div className="notes__main-content">
+            <div className="notes__appbar2">
+                <div
+                    className="brain animate__animated animate__heartBeat animate__animated animate__slower  animate__infinite	"></div><span>{
 
+                        noteDate.format('LL')}</span></div>
             <NotesAppBar />
             <div className="notes__content">
 
                 <input
-                    type="text"
-                    placeholder="some asome tittle"
+
+                    placeholder="What is your idea?"
                     className="notes__title-input"
                     autoComplete="off"
                     name='title'
@@ -64,7 +69,7 @@ export const NotesScreen = () => {
 
                 <textarea
                     className="note__textarea"
-                    placeholder="whats happened today"
+                    placeholder="raise your idea ..."
                     value={body}
                     name='body'
 
@@ -79,7 +84,7 @@ export const NotesScreen = () => {
                     (note.url)
                     &&
                     (<div >
-                        <img className="notes__image"
+                        <img className="notes__image animate__animated animate__fadeInLeft"
                             src={note.url}
                             alt="imagen"
 

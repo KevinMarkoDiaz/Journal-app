@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { JournalEntries } from './JournalEntries'
 import { useDispatch, useSelector } from "react-redux";
 import { startLogout } from '../../actions/auth';
@@ -19,21 +19,38 @@ export const Sidebar = () => {
         dispatch(startNewNote())
     };
 
-    return (
-        <aside className="journal-sidebar">
+
+    const [estadoSidebar, setstate] = useState(true)
+
+    const handleChangeStateSidebar = () => {
+        if (estadoSidebar === true) { setstate(false) } else { setstate(true) }
+
+    };
+
+    if (estadoSidebar === true) {
+        return (<aside className="journal-sidebar animate__animated animate__fadeInDownBig animate__faster "  >
+            <div className="contBtnSidebar" > <span
+                onClick={handleChangeStateSidebar}
+                className="nav-var fas fa-bars" id="btn-menu"></span></div>
+
+
 
             <div className="journal__sidebar-navbar">
-                <h3 className="mt-5">
-                    <i className="far fa-moon"></i>
-                    <span>{name} </span>
+                <div
+                    className="journal__sidebar-logo"
+
+                ></div>
+                <h3 >
+                    <i className="fas fa-clipboard-list"></i>
+                    <span>  {name} </span>
                 </h3>
 
 
-                <button
-                    className="btn"
+                <div
+                    className="btn "
                     onClick={handleLogout}
 
-                >Logout</button>
+                >Logout</div>
 
             </div>
 
@@ -41,11 +58,31 @@ export const Sidebar = () => {
                 onClick={handleAddNote}
             >
                 <i className="far fa-calendar-plus fa-5x" />
-                <p>New Entry</p>
+                <p>New idea</p>
             </div>
 
             <JournalEntries />
 
         </aside>
-    )
+        )
+    } else {
+        return (<div className="contBtnSidebar animate__animated animate__fadeInUpBig animate__faster" > <span
+            onClick={handleChangeStateSidebar}
+            className="nav-var fas fa-bars " id="btn-menu"></span></div>
+
+
+        )
+    }
+
+
+
+
+
+
 }
+
+
+
+
+
+

@@ -14,8 +14,8 @@ export const LoginScreen = () => {
 
 
     const [formValues, handleImputChange] = useForm({
-        email: 'pacual@gmail.com',
-        password: '12345678'
+        email: '',
+        password: ''
     });
 
     const { email, password } = formValues;
@@ -35,7 +35,7 @@ export const LoginScreen = () => {
 
 
     return (
-        <>
+        <div className="animate__animated animate__fadeIn animate__faster">
             <h3 className="auth__title">login</h3>
             <form onSubmit={handleLogin}>
 
@@ -93,6 +93,6 @@ export const LoginScreen = () => {
 
 
 
-        </>
+        </div>
     )
 }
